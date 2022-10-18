@@ -1,7 +1,7 @@
 function trending({ data }) {
   const TrendingCard = ({ price, symbol, thumb, slug }) => {
     return (
-      <div className='max-w-sm md:max-w-xs bg-white shadow-xl rounded-xl py-8 px-6'>
+      <div className='w-full md:max-w-xs bg-white shadow-xl rounded-xl py-8 px-6'>
         <img src={thumb} alt='' />
         <p class='text-2xl mt-3 font-bold text-gray-800'>
           Battle Infinity

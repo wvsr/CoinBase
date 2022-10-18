@@ -27,12 +27,14 @@ function Header() {
     <>
       <header className='bg-blue-50 border-b-[0.5px] border-black-100 shadow-sm py-3 top-0 sticky w-full z-50'>
         <nav className='container flex px-2 sm:px-0 sm:mx-auto'>
-          <div className='logo flex-1 text-2xl font-black flex gap-1'>
-            <span className='pt-[5px]'>
-              <MdLeaderboard />
-            </span>
-            CoinBase
-          </div>
+          <Link href='/'>
+            <div className='logo flex-1 text-2xl font-black flex gap-1'>
+              <span className='pt-[5px]'>
+                <MdLeaderboard />
+              </span>
+              CoinBase
+            </div>
+          </Link>
           <button
             className='md:hidden text-2xl outline-none'
             onClick={ToggleNav}

@@ -1,4 +1,13 @@
+import { useState } from 'react'
+
 function Exchange({ data }) {
+  const [crypto, setCrypto] = useState(0)
+  const [inusd, setInusd] = useState(null)
+  function convertUsd() {
+    console.log(data[0].current_price * crypto)
+    setInusd(data[0].current_price * crypto)
+  }
+
   return (
     <div className='p-3 bg-blue-50'>
       <div className='flex flex-col-reverse xl:flex-row justify-start gap-5'>
@@ -42,16 +51,22 @@ function Exchange({ data }) {
               className='text-lg w-full py-3 px-3 outline-none rounded-lg bg-blue-50 mb-3'
               placeholder='currency'
               type='number'
+              value={crypto}
+              onChange={(e) => setCrypto(e.target.value)}
             />
             <input
               className='text-lg w-full py-3 px-3 outline-none rounded-lg bg-blue-50 mb-3'
               placeholder='In USD'
               type='number'
+              value={inusd}
               readOnly
             />
           </div>
 
-          <button className='bg-blue-500 w-full py-2 text-white rounded-md'>
+          <button
+            className='bg-blue-500 w-full py-2 text-white rounded-md'
+            onClick={convertUsd}
+          >
             Convert Now
           </button>
         </div>
