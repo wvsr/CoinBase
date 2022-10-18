@@ -1,52 +1,75 @@
-import Header from '../components/header'
-import Sidebar from '../components/sidebar'
-import Layout from '../components/layout'
-function index() {
+import { BiTrendingUp, BiTrendingDown } from 'react-icons/bi'
+export function index({ data }) {
   return (
-    <>
-      {/* <Header />
-      <Sidebar /> */}
-      <Layout>
-        <p className='p-5'>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quo autem
-          porro provident vero explicabo fuga nobis! Cum alias eligendi, optio,
-          pariatur unde maiores dicta incidunt tempore amet modi id dolorum?
-          Fuga voluptatibus excepturi, impedit omnis consequatur quia voluptate
-          modi obcaecati accusamus maiores repellat asperiores ex temporibus
-          corrupti nisi eaque natus. Rem amet excepturi necessitatibus soluta,
-          pariatur blanditiis. Cumque, voluptate repellendus! Pariatur optio
-          possimus, rem distinctio ipsa ex illum neque incidunt reiciendis
-          dolorum quam iusto consequuntur earum, esse nesciunt provident quis
-          dicta numquam vel impedit maxime labore voluptate. Ab, eos. Eveniet.
-          Debitis voluptates optio voluptas, iure corrupti dicta sit, quasi
-          rerum necessitatibus consequuntur in molestiae adipisci recusandae
-          laboriosam. Asperiores quasi deserunt eum repudiandae expedita,
-          doloribus rerum, adipisci officia voluptatum, incidunt consectetur?
-          Culpa quis alias ex! Debitis, tempore. Nulla, est ex deleniti
-          quibusdam ab consequatur laboriosam quia, laudantium accusamus iste
-          quisquam aliquid repudiandae consequuntur, nesciunt sit voluptates
-          velit error maiores eum impedit? Fuga sapiente non corporis omnis
-          veniam voluptatibus, dignissimos porro maxime facere praesentium quod
-          suscipit eos, ipsam itaque earum ad sint nesciunt! Dignissimos
-          deserunt assumenda consequuntur placeat nostrum pariatur iste commodi!
-          In accusantium eaque alias corporis cupiditate. Animi assumenda
-          temporibus praesentium voluptatibus, minus, laborum corporis fugiat
-          sequi, sint consequatur perspiciatis sapiente inventore voluptas ut
-          quo doloribus quia eius accusamus ullam dolorem. Praesentium debitis
-          sunt reprehenderit, sequi aspernatur, ipsa molestiae perferendis
-          placeat doloremque repudiandae odio. Quis molestias quae eaque,
-          provident fugiat alias ut accusantium saepe assumenda qui debitis!
-          Neque praesentium numquam vero. Hic ex repellendus quod alias amet
-          dolorum, vero ullam porro accusantium officiis maxime rem accusamus,
-          similique sit nulla delectus ipsam odio molestiae praesentium magni
-          quas iure magnam. Illo, magnam! Voluptatibus. Molestiae nihil aut ex
-          dolorum voluptatem qui alias, impedit totam expedita fugit laborum
-          esse temporibus. Cum, quidem in eveniet ducimus libero ad illo
-          repellat magni assumenda at. Quos, fugiat assumenda.
-        </p>
-      </Layout>
-    </>
+    <div className='p-3'>
+      <div className='w-full overflow-x-scroll'>
+        <table className='w-full text-base text-left text-gray-500 '>
+          <thead className='text-base text-gray-700 uppercase bg-gray-50 '>
+            <tr>
+              <th scope='col' className='py-3 px-6'>
+                Name
+              </th>
+              <th scope='col' className='py-3 px-6'>
+                Price in USD
+              </th>
+              <th scope='col' className='py-3 px-6'>
+                price change in 24h %
+              </th>
+              <th scope='col' className='py-3 px-6'>
+                valuation
+              </th>
+              <th scope='col' className='py-3 px-6'>
+                volume
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((props, id) => (
+              <tr className='bg-white border-b' key={id}>
+                <th className='py-4 px-6 flex gap-3'>
+                  <img className='h-5 w-5' src={props.image} alt={props.name} />{' '}
+                  {props.name}
+                </th>
+                <td className='py-4 px-6'>{props.current_price}</td>
+                <td className='py-4 px-6 '>
+                  <div
+                    className={`flex gap-2 w-auto max-w-fit rounded-full px-3 py-1.5 ${
+                      props.price_change_percentage_24h < 0
+                        ? 'bg-red-200 text-red-700'
+                        : 'bg-green-200 text-green-700'
+                    }`}
+                  >
+                    <span className='pt-[7px]'>
+                      {props.price_change_percentage_24h < 0 ? (
+                        <BiTrendingDown />
+                      ) : (
+                        <BiTrendingUp />
+                      )}
+                    </span>
+                    {props.price_change_percentage_24h}
+                  </div>
+                </td>
+                <td className='py-4 px-6'>{props.market_cap}</td>
+                <td className='py-4 px-6'>{props.total_volume}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
   )
 }
 
+export async function getStaticProps() {
+  const res = await fetch(
+    'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc &per_page=50'
+  )
+  const data = await res.json()
+  return {
+    props: {
+      data,
+    },
+    revalidate: 600,
+  }
+}
 export default index
