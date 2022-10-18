@@ -2,7 +2,7 @@ import Header from './header'
 import Head from 'next/head'
 // import Sidebar from './sidebar'
 
-function layout({ children }) {
+function Layout({ children }) {
   return (
     <>
       <Head>
@@ -19,5 +19,6 @@ function layout({ children }) {
     </>
   )
 }
+// Layout.displayName = 'Layout'
 
-export default layout
+export default Layout

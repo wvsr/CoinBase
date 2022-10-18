@@ -5,10 +5,10 @@ import { TbMenu } from 'react-icons/tb'
 import { FaRegNewspaper } from 'react-icons/fa'
 import { MdHome, MdCached, MdTrendingUp, MdLeaderboard } from 'react-icons/md'
 
-function header() {
-  const showNav = useRef(null)
-  const toggleNav = () => {
-    showNav.current.classList.toggle('hidden')
+function Header() {
+  const ShowNav = useRef(null)
+  const ToggleNav = () => {
+    ShowNav.current.classList.toggle('hidden')
   }
 
   function SideLink({ href, text, icon }) {
@@ -16,7 +16,7 @@ function header() {
       <Link href={href} className='w-full text-center'>
         <a
           className='text-gray-700 hover:bg-[#D5E6FB] hover:text-[#0060FF] rounded-md px-6 py-2 capitalize font-normal text-xl flex gap-4 transition-all duration-300'
-          onClick={toggleNav}
+          onClick={ToggleNav}
         >
           <span className='pt-[5px]'>{icon}</span> {text}
         </a>
@@ -35,7 +35,7 @@ function header() {
           </div>
           <button
             className='md:hidden text-2xl outline-none'
-            onClick={toggleNav}
+            onClick={ToggleNav}
           >
             <TbMenu />
           </button>
@@ -45,7 +45,7 @@ function header() {
       {/* side bar */}
       <div
         className='bg-slate-50 hidden md:block h-full w-[80%] sm:w-[60%] md:w-1/4 lg:w-[20%] fixed z-40 top-0 left-0  shadow-lg  border-r-[0.5px] border-gray-100'
-        ref={showNav}
+        ref={ShowNav}
       >
         <div className='overflow-x-hidden pt-24 px-4 space-y-4 flex flex-col'>
           <SideLink href='/' text='home' icon={<MdHome />} />
@@ -57,5 +57,5 @@ function header() {
     </>
   )
 }
-
-export default header
+Header.displayName = 'Header'
+export default Header

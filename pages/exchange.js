@@ -1,4 +1,4 @@
-export default function ({ data }) {
+function Exchange({ data }) {
   return (
     <div className='p-3 bg-blue-50'>
       <div className='flex flex-col-reverse xl:flex-row justify-start gap-5'>
@@ -72,3 +72,6 @@ export async function getStaticProps() {
     },
   }
 }
+
+Exchange.displayName = 'Exchange'
+export default Exchange

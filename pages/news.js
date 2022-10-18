@@ -1,4 +1,4 @@
-export default function ({ data, id }) {
+function News({ data, id }) {
   return (
     <div className='p-3 bg-blue-50 '>
       <h2 className='text-4xl my-4'>Trending News</h2>
@@ -11,6 +11,7 @@ export default function ({ data, id }) {
                 target='_blank'
                 className='max-w-sm space-y-2'
                 key={id}
+                rel='noreferrer'
               >
                 <img
                   src={props?.image?.thumbnail?.contentUrl}
@@ -51,3 +52,6 @@ export async function getStaticProps() {
     revalidate: 14400,
   }
 }
+
+News.toggleNav = 'News'
+export default News
