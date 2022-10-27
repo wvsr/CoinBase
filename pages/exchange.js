@@ -1,11 +1,14 @@
 import { useState } from 'react'
 
-function Exchange({ data }) {
-  const [crypto, setCrypto] = useState(0)
+function Exchange({ data, curData }) {
+  const [quantity, setQuantity] = useState(0)
   const [inusd, setInusd] = useState(null)
+  const [selectValue, setSelectValue] = useState(0)
+  const [curValue, setCurValue] = useState(0)
+
   function convertUsd() {
-    console.log(data[0].current_price * crypto)
-    setInusd(data[0].current_price * crypto)
+    console.log(curValue * quantity * selectValue)
+    setInusd(selectValue * quantity * curValue)
   }
 
   return (
@@ -27,7 +30,7 @@ function Exchange({ data }) {
               </tr>
             </thead>
             <tbody>
-              {data.map((props, id) => (
+              {data.slice(0, 50).map((props, id) => (
                 <tr className='bg-white border-b' key={id}>
                   <th className='py-4 px-6 flex gap-3'>
                     <img
@@ -44,15 +47,14 @@ function Exchange({ data }) {
             </tbody>
           </table>
         </div>
-        <div className='max-w-sm max-h-64 xl:sticky bg-white xl:top-20 p-3 rounded-lg shadow-lg'>
+        <div className='max-w-sm max-h-80 xl:sticky bg-white xl:top-20 p-3 rounded-lg shadow-lg'>
           <p className='text-2xl my-3'>Convert</p>
           <div>
             <input
               className='text-lg w-full py-3 px-3 outline-none rounded-lg bg-blue-50 mb-3'
               placeholder='currency'
               type='number'
-              value={crypto}
-              onChange={(e) => setCrypto(e.target.value)}
+              onChange={(e) => setQuantity(e.target.value)}
             />
             <input
               className='text-lg w-full py-3 px-3 outline-none rounded-lg bg-blue-50 mb-3'
@@ -61,6 +63,29 @@ function Exchange({ data }) {
               value={inusd}
               readOnly
             />
+            <div className='flex gap-2'>
+              {' '}
+              <select
+                name=''
+                id=''
+                className='text-lg w-full py-3 px-3 outline-none rounded-lg bg-blue-50 mb-3'
+                onChange={(e) => setSelectValue(e.target.value)}
+              >
+                {data.map((props) => (
+                  <option value={props.current_price}>{props.name}</option>
+                ))}
+              </select>
+              <select
+                name=''
+                id=''
+                className='text-lg w-full py-3 px-3 outline-none rounded-lg bg-blue-50 mb-3'
+                onChange={(e) => setCurValue(e.target.value)}
+              >
+                {curData.map((props) => (
+                  <option value={props[0]}>{props[1]}</option>
+                ))}
+              </select>
+            </div>
           </div>
 
           <button
@@ -76,15 +101,27 @@ function Exchange({ data }) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch(
-    'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc &per_page=50'
+  const coinRes = await fetch(
+    'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc &per_page=100'
   )
-  const data = await res.json()
+  const coinData = await coinRes.json()
+  const curRes = await fetch(
+    'https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd.json'
+  )
+  const curData = await curRes.json()
+  const curList = await fetch(
+    'https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json'
+  )
+  const curListRes = await curList.json()
+  console.log(
+    Object.entries(curData.usd).map((e, i) => [e[1], curListRes[e[0]]])
+  )
   return {
     props: {
-      data,
-      revalidate: 600,
+      data: coinData,
+      curData: Object.entries(curData.usd).map((e) => [e[1], curListRes[e[0]]]),
     },
+    revalidate: 600,
   }
 }
 

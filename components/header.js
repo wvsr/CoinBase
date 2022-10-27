@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { TbMenu } from 'react-icons/tb'
-// import MediaQuery from 'react-responsive'
 import { FaRegNewspaper } from 'react-icons/fa'
 import { MdHome, MdCached, MdTrendingUp, MdLeaderboard } from 'react-icons/md'
 
@@ -11,11 +11,15 @@ function Header() {
     ShowNav.current.classList.toggle('hidden')
   }
 
+  const router = useRouter()
+
   function SideLink({ href, text, icon }) {
     return (
       <Link href={href} className='w-full text-center'>
         <a
-          className='text-gray-700 hover:bg-[#D5E6FB] hover:text-[#0060FF] rounded-md px-6 py-2 capitalize font-normal text-xl flex gap-4 transition-all duration-300'
+          className={`text-gray-700 rounded-md px-6 py-2 capitalize text-xl flex gap-4 transition-all duration-300 hover:bg-slate-200 ${
+            router.pathname == href ? 'bg-[#D5E6FB] text-[#0060FF]' : ''
+          }`}
           onClick={ToggleNav}
         >
           <span className='pt-[5px]'>{icon}</span> {text}
@@ -23,9 +27,10 @@ function Header() {
       </Link>
     )
   }
+
   return (
     <>
-      <header className='bg-blue-50 border-b-[0.5px] border-black-100 shadow-sm py-3 top-0 sticky w-full z-50'>
+      <header className='bg-slate-100 border-b-[0.5px] border-black-100 shadow-sm py-3 top-0 sticky w-full z-50'>
         <nav className='container flex px-2 sm:px-0 sm:mx-auto'>
           <Link href='/'>
             <div className='logo flex-1 text-2xl font-black flex gap-1'>
