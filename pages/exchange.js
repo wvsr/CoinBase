@@ -1,5 +1,5 @@
 import { useState } from 'react'
-
+import Image from 'next/image'
 function Exchange({ data, curData }) {
   const [quantity, setQuantity] = useState(0)
   const [inusd, setInusd] = useState(null)
@@ -33,8 +33,9 @@ function Exchange({ data, curData }) {
               {data.slice(0, 50).map((props, id) => (
                 <tr className='bg-white border-b' key={id}>
                   <th className='py-4 px-6 flex gap-3'>
-                    <img
-                      className='h-5 w-5'
+                    <Image
+                      width={23}
+                      height={20}
                       src={props.image}
                       alt={props.name}
                     />{' '}
@@ -71,8 +72,10 @@ function Exchange({ data, curData }) {
                 className='text-lg w-full py-3 px-3 outline-none rounded-lg bg-blue-50 mb-3'
                 onChange={(e) => setSelectValue(e.target.value)}
               >
-                {data.map((props) => (
-                  <option value={props.current_price}>{props.name}</option>
+                {data.map((props, id) => (
+                  <option value={props.current_price} key={id}>
+                    {props.name}
+                  </option>
                 ))}
               </select>
               <select
@@ -81,8 +84,10 @@ function Exchange({ data, curData }) {
                 className='text-lg w-full py-3 px-3 outline-none rounded-lg bg-blue-50 mb-3'
                 onChange={(e) => setCurValue(e.target.value)}
               >
-                {curData.map((props) => (
-                  <option value={props[0]}>{props[1]}</option>
+                {curData.map((props, id) => (
+                  <option value={props[0]} key={id}>
+                    {props[1]}
+                  </option>
                 ))}
               </select>
             </div>
@@ -113,9 +118,9 @@ export async function getStaticProps() {
     'https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies.json'
   )
   const curListRes = await curList.json()
-  console.log(
-    Object.entries(curData.usd).map((e, i) => [e[1], curListRes[e[0]]])
-  )
+  // console.log(
+  //   Object.entries(curData.usd).map((e, i) => [e[1], curListRes[e[0]]])
+  // )
   return {
     props: {
       data: coinData,

@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { BiTrendingUp, BiTrendingDown } from 'react-icons/bi'
 export function index({ data }) {
   return (
@@ -27,7 +28,12 @@ export function index({ data }) {
             {data.map((props, id) => (
               <tr className='bg-white border-b' key={id}>
                 <th className='py-4 px-6 flex gap-3'>
-                  <img className='h-5 w-5' src={props.image} alt={props.name} />{' '}
+                  <Image
+                    width={23}
+                    height={20}
+                    src={props.image}
+                    alt={props.name}
+                  />{' '}
                   {props.name}
                 </th>
                 <td className='py-4 px-6'>{props.current_price}</td>
