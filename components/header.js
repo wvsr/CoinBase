@@ -30,18 +30,19 @@ function Header() {
 
   return (
     <>
-      <header className='bg-slate-100 border-b-[0.5px] border-black-100 shadow-sm py-3 top-0 sticky w-full z-50'>
-        <nav className='container flex px-2 sm:px-0 sm:mx-auto'>
-          <Link href='/'>
-            <div className='logo flex-1 text-2xl font-black flex gap-1'>
-              <span className='pt-[5px]'>
+      <header className='bg-slate-100 border-b-[0.5px] border-black-100 shadow-sm py-2 top-0 sticky w-full z-50'>
+        <nav className='container flex px-2 sm:px-0 sm:mx-auto items-center'>
+          {/* Logo */}
+          <div className='logo flex-1 text-2xl font-black'>
+            <Link href='/'>
+              <span className='flex items-center gap-2 max-w-fit cursor-pointer mx-3 my-1.5'>
                 <MdLeaderboard />
+                CoinBase
               </span>
-              CoinBase
-            </div>
-          </Link>
+            </Link>
+          </div>
           <button
-            className='md:hidden text-2xl outline-none'
+            className='md:hidden text-2xl outline-none mx-3 my-2'
             onClick={ToggleNav}
           >
             <TbMenu />
@@ -54,7 +55,7 @@ function Header() {
         className='bg-slate-50 hidden md:block h-full w-[80%] sm:w-[60%] md:w-1/4 lg:w-[20%] fixed z-40 top-0 left-0  shadow-lg  border-r-[0.5px] border-gray-100'
         ref={ShowNav}
       >
-        <div className='overflow-x-hidden pt-24 px-4 space-y-4 flex flex-col'>
+        <div className='overflow-x-hidden pt-24 px-4 space-y-4 flex flex-col font-medium'>
           <SideLink href='/' text='home' icon={<MdHome />} />
           <SideLink href='/exchange' text='exchange' icon={<MdCached />} />
           <SideLink href='/trending' text='trending' icon={<MdTrendingUp />} />

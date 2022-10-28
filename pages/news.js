@@ -9,16 +9,16 @@ function News({ data, id }) {
               <a
                 href={props?.url}
                 target='_blank'
-                className='max-w-sm space-y-2'
+                className='w-full space-y-2'
                 key={id}
                 rel='noreferrer'
               >
                 <img
                   src={props?.image?.thumbnail?.contentUrl}
-                  className='w-full h-auto transform hover:scale-105 transition-transform duration-200'
+                  className='w-full h-auto transform hover:scale-105 transition-transform duration-200 rounded-md'
                   alt=''
                 />
-                <h2 className='text-xl break-words hover:underline underline-offset-2'>
+                <h2 className='text-xl break-words hover:underline underline-offset-2 font-semibold'>
                   {props?.name}
                 </h2>
               </a>

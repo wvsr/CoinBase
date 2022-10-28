@@ -48,7 +48,8 @@ function Exchange({ data, curData }) {
             </tbody>
           </table>
         </div>
-        <div className='max-w-sm max-h-80 xl:sticky bg-white xl:top-20 p-3 rounded-lg shadow-lg'>
+        {/* calculator */}
+        <div className='w-full md:max-w-sm max-h-80 xl:sticky bg-white xl:top-20 p-3 rounded-lg shadow-lg'>
           <p className='text-2xl my-3'>Convert</p>
           <div>
             <input

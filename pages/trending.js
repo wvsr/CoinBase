@@ -1,10 +1,10 @@
 function trending({ data }) {
-  const TrendingCard = ({ price, symbol, thumb, slug }) => {
+  const TrendingCard = ({ price, symbol, thumb, coin_name }) => {
     return (
       <div className='w-full md:max-w-xs bg-white shadow-xl rounded-xl py-8 px-6'>
         <img src={thumb} alt='' />
         <p class='text-2xl mt-3 font-bold text-gray-800'>
-          Battle Infinity
+          {coin_name}
           <span className='uppercase text-base text-gray-600'> / {symbol}</span>
         </p>
         <p className='text-4xl font-bold mt-3'>
@@ -25,6 +25,7 @@ function trending({ data }) {
             symbol={data.item.symbol}
             slug={data.item.slug}
             thumb={data.item.small}
+            coin_name={data.item.name}
           />
         ))}
       </div>

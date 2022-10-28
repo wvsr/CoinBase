@@ -1,6 +1,6 @@
 import Header from './header'
 import Head from 'next/head'
-// import Sidebar from './sidebar'
+import NextNProgress from 'nextjs-progressbar'
 
 function Layout({ children }) {
   return (
@@ -14,6 +14,7 @@ function Layout({ children }) {
         />
       </Head>
       <Header />
+      <NextNProgress color='#1976d2' height={5} />
       {/* <Sidebar /> */}
       <main className='h-full md:ml-[25%] lg:ml-[20%] '>{children}</main>
     </>

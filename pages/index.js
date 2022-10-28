@@ -29,8 +29,9 @@ export function index({ data }) {
               <tr className='bg-white border-b' key={id}>
                 <th className='py-4 px-6 flex gap-3'>
                   <Image
-                    width={23}
-                    height={20}
+                    width={25}
+                    height={25}
+                    className='h-5 w-5'
                     src={props.image}
                     alt={props.name}
                   />{' '}
